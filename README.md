@@ -13,8 +13,11 @@ El código se estructura de una manera “modular”, lo que en programación si
 La organización del código se hace en las siguientes carpetas:
 
 __00_dependencias__ es la carpeta en la cual se almacenan las distintas funciones del código.
+
 __01_input__ es la carpeta en la cual se guardan los archivos excel o de texto que contienen la información a procesar.
+
 __02_output__ es la carpeta en la cual se guardan los archivos generado por las rutinas.
+
 __03_docs__ es la carpeta dedicada exclusivamente a guardar imagenes o textos para la documentación del código.
 
 
