@@ -2,6 +2,8 @@
 
 ![fig0](./03_docs/01_figuras/otros/Logo_Flow_transp.png)
 
+Este repositorio contiene código diseñado para postprocesar datos generados por simulaciones en GoldSim, con el objetivo de visualizar resultados mediante gráficos. El enfoque principal está en extraer, transformar y representar variables clave del modelo, facilitando el análisis y la comunicación de resultados de manera eficiente.
+
 El código se estructura de una manera “modular”, lo que en programación significa que cada módulo o script es independiente y se enfoca en una tarea especifica, esto tiene algunos beneficios cómo:
 
 1.	Facilidad de uso: En vez de tener un solo código de 1000 líneas, se divide el código en pequeños módulos, lo que facilita la depuración del código.
