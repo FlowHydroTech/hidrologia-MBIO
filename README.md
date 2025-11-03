@@ -27,7 +27,7 @@ Los módulos "procesarXX" (ej: procesar01_est_daily.R) son los puntos de acceso 
  El script lee datos diarios desde un archivo Excel con los percentiles (generados con GoldSim) y generar un gráfico de series de tiempo diarios hasta el 31 de diciembre de 2052. Luego guarda la figura como imagen .png en una carpeta de salida. Para gráficar se muestra el resultado de procesar los datos de volumen del Tranque Mauro a nivel diario:
 
 
-__Volumen Tranque Mauro__<br /> ![fig1 EST daily](./03_docs/01_figuras/figuras_volumen/E2c_5YPEX95_EST.png)
+__Volumen Tranque Mauro Estocástico:__<br /> ![fig1 EST daily](./03_docs/01_figuras/figuras_volumen/E2c_5YPEX95_EST.png)
 
 2. **procesar02_det_daily.R**
 
@@ -36,20 +36,20 @@ El script procesa datos de distintos escenarios determinísticos en una sola fig
 >[!NOTE] 
 > También sirve para 1 escenario determinístico. Además si bien menciona que es a nivel diario, con un pequeño cambio en el código se puede procesar datos a nivel mensual y anual.
 
-![fig2 DET daily](./03_docs/01_figuras/figuras_volumen/volumen_laguna_DET_ALL.png)
+__Volumen Tranque Mauro Determinístico:__<br /> ![fig2 DET daily](./03_docs/01_figuras/figuras_volumen/volumen_laguna_DET_ALL.png)
 
 3. **procesar03_est_yearly.R**
 
 El script procesa datos de escenarios estocásticos a nivel anual. A continuación se muestran dos ejemplos, el primer ejemplo es el déficit de agua en la planta de tratamiento y el segundo es el flujo que aporta las plantas desaladoras al tratamiento de mineral.  
 
-![fig3 EST def yearly](./03_docs/01_figuras/otros/deficit_E2c_5YPEX95_EST.png)
-![fig4 EST desaladora inflow yearly](./03_docs/01_figuras/otros/PPlant_from_desaladora_inflow_E2c_5YPEX95_EST.png)
+__Déficit de Agua:__<br /> ![fig3 EST def yearly](./03_docs/01_figuras/otros/deficit_E2c_5YPEX95_EST.png)
+__Flujo de planta desaladora al tratamiento de mineral:__<br /> ![fig4 EST desaladora inflow yearly](./03_docs/01_figuras/otros/PPlant_from_desaladora_inflow_E2c_5YPEX95_EST.png)
 
 4. **procesar04_directriz_AMSA.R**
 
 Este script procesa datos mensuales de la variable de tratamiento de mineral de las 100 realizaciones de una simulación estocástica. Se establece que una configuración del modelo —definida por una combinación específica de condiciones hidrológicas, estrategia de desalación, y parámetros operacionales— garantiza seguridad hídrica cuando, al menos el 90% del tiempo, se logra una producción de agua suficiente para alcanzar o superar el 100% del requerimiento hídrico asociado al mineral proyectado. Esto implica que el sistema posee la resiliencia necesaria para enfrentar variabilidades climáticas sin comprometer la continuidad operativa ni la eficiencia en la producción. 
 
-![fig5 AMSA](./03_docs/01_figuras/figuras_seguridad_hidrica/plot_AMSA_2026_2052_E2c_5YPEX85_EST.png)
+__Directriz AMSA:__<br /> ![fig5 AMSA](./03_docs/01_figuras/figuras_seguridad_hidrica/plot_AMSA_2026_2052_E2c_5YPEX85_EST.png)
 
 5. **procesar05_archivos_txtGoldsim.R**
 
@@ -63,4 +63,4 @@ Este script procesa los archivos de .txt de GoldSim. En la última versión del 
 El script procesa las variables del modelo en GoldSim: Bombeo_Maximo_Des1y2, Bombeo_Maximo_Des_Mod_extra y Bombeo_Maximo_Des_Mod_evu, con el objetivo de mostrar la capacidad máxima de desalación del sistema. La imagen a continuación ilustra dicha capacidad máxima para cada una de estas variables (y del total).
 
 
-![fig6 Desalacion Max](./03_docs/01_figuras/otros/desalacion_max.png)
+__Desalación Máxima:__<br /> ![fig6 Desalacion Max](./03_docs/01_figuras/otros/desalacion_max.png)
