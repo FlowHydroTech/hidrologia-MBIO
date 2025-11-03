@@ -32,7 +32,7 @@ Los módulos "procesarXX" (ej: procesar01_est_daily.R) son los puntos de acceso 
 
 El script procesa datos de distintos escenarios determinísticos en una sola figura. Por ejemplo, tenemos el gráfico del volumen del Tranque Mauro para tres escenarios determinísticos a nivel diario: 
 
->[!NOTA] 
+>[!NOTE] 
 > También puede hacerse solo para 1 escenario determinístico. 
 
 ![fig2 DET daily](./03_docs/01_figuras/figuras_volumen/volumen_laguna_DET_ALL.png)
