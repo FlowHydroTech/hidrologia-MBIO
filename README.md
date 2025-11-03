@@ -26,7 +26,14 @@ Los módulos "procesarXX" (ej: procesar01_est_daily.R) son los puntos de acceso 
 
  El script lee datos diarios desde un archivo Excel con los percentiles (generados con GoldSim) y generar un gráfico de series de tiempo diarios hasta el 31 de diciembre de 2052. Luego guarda la figura como imagen .png en una carpeta de salida. Para gráficar se muestra el resultado de procesar los datos de volumen del Tranque Mauro a nivel diario:
 
-![fig1 EST daily](./03_docs/01_figuras/figuras_volumen/E2c_5YPEX95_EST.png)
+<figure>
+  <img
+  src="./03_docs/01_figuras/figuras_volumen/E2c_5YPEX95_EST.png"
+  alt="The beautiful MDN logo.">
+  <figcaption>MDN Logo</figcaption>
+</figure>
+
+[fig1 EST daily](./03_docs/01_figuras/figuras_volumen/E2c_5YPEX95_EST.png)
 
 2. **procesar02_det_daily.R**
 
