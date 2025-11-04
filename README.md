@@ -66,3 +66,7 @@ El script procesa las variables del modelo en GoldSim: Bombeo_Maximo_Des1y2, Bom
 
 
 __Desalación Máxima:__<br /> ![fig6 Desalacion Max](./03_docs/01_figuras/otros/desalacion_max.png)
+
+## Carpeta 00_dependencias
+
+En la carpeta **00_dependecias** se encuentran los códigos que son utilizados por los módulos "procesarXX" para realizar las distintas tareas, entre estas tareas se encuentran principalmente la de leer los archivos excel o de texto de GoldSim y el de la creación las figuras (sólo hay una excepción a esta regla la cuál es el módulo **procesar04_directriz_AMSA.R** que contiene todo autocontenido en un solo archivo). 

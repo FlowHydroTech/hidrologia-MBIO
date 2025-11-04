@@ -11,6 +11,8 @@ read_det_data <- function(
   end_time,
   key_list
 ) {
+  # Esta funcion tiene como objetivo leer archivos de excel de goldsim
+  # que contengan varias realizaciones deterministicas.
   df <- openxlsx::read.xlsx(
     xlsxFile = file,
     sheet = sheet,
@@ -92,23 +94,38 @@ read_txt_goldsim <- function(file) {
 }
 
 
-read_est_data <- function(file) {
+read_est_data <- function(file, delta_time) {
   df <- openxlsx::read.xlsx(
     xlsxFile = file,
     sheet = "Hoja1",
     colNames = FALSE,
   )
-  df_chr <- df[3, 1:12]
-  row_name <- mutate_names(x = df_chr)
-  row_name[1] <- "time"
-  row_name <- paste0("var_", row_name)
-  df_values <- data.frame(sapply(df[4:nrow(df), 1:12], as.numeric))
-  df_date <- as.Date(paste0(df_values[, 1], "-01-01"))
-  # df_date <- as.Date(df_values[, 1], origin = "1899-12-30")
-  df_values[1] <- df_date
+  # Esta funcion lee una archivo de excel de simulaciones estocásticas,
+  # en dónde está los percentiles de la variable.
+  # delta_time = "1 day" or "1 year"
 
-  colnames(df_values) <- row_name
-  return(df_values)
+  # Crear tiempo
+  start_time <- as.Date("2017-01-01")
+  end_time <- as.Date("2052-12-31")
+  time <- as.data.frame(
+    seq(start_time, end_time, by = delta_time),
+  )
+
+  # Leer y transformar data
+  df_chr <- df[3, 2:12]
+  row_name <- mutate_names(x = df_chr)
+  row_name <- paste0("var_", row_name)
+  df_values <- data.frame(
+    sapply(df[4:nrow(df), 2:12], function(x) round(as.numeric(x), 4))
+  )
+
+  # concadenar
+
+  dft <- cbind(time, df_values)
+  rownames(dft) <- NULL
+  colnames(dft) <- c("time", row_name)
+
+  return(dft)
 }
 
 
@@ -117,10 +134,11 @@ read_vertical_data <- function(
   sheet,
   start_row,
   cols,
-  time_str,
+  delta_time,
   start_time,
   end_time
 ) {
+  # La funcion lee un archivo de excel con la data ordenada de forma vertical
   df <- openxlsx::read.xlsx(
     xlsxFile = file,
     sheet = sheet,
@@ -132,7 +150,7 @@ read_vertical_data <- function(
   col_name <- c("var")
   names(df) <- col_name
 
-  time <- seq(start_time, end_time, by = time_str)
+  time <- seq(start_time, end_time, by = delta_time)
   dft <- cbind(time, df)
   rownames(dft) <- NULL
   names(dft) <- c("time", "data")
@@ -140,6 +158,8 @@ read_vertical_data <- function(
 }
 
 aggr_month_df <- function(df, func) {
+  # Esta funcion toma un dataframe (df) con una columna llamada "time" y
+  # agrega la informacion con la funcion "func" (sum or avg)
   df$year_col <- strftime(df$time, "%Y")
 
   group <- df |>
@@ -163,19 +183,8 @@ read_horizontal_data <- function(
   start_time,
   end_time
 ) {
-  # Esta funcion lee los excels de balance integral MBIO.
-  # time_str es 'year' o 'month' para la funcion de R "seq"
-  # ej:
-  # df <- read_transposed_data(
-  #   file = path_excel,
-  #   sheet = sheet_flow,
-  #   rows = rows_flow,
-  #   cols = cols_flow,
-  #   time_str = time_str,
-  #   start_time = as.Date("2024-01-01"),
-  #   end_time = as.Date("2052-12-01")
-  # )
-
+  # Esta funcion lee datos que están en las filas o de forma horizontal
+  # en el archivo Resultados_anual.xlsx (hoja resumen)
   df <- openxlsx::read.xlsx(
     xlsxFile = file,
     sheet = sheet,
@@ -183,9 +192,6 @@ read_horizontal_data <- function(
     rows = rows,
     cols = cols,
   )
-
-  df_chr <- df[, 1]
-  col_name <- mutate_names(x = df_chr)
 
   dft <- as.data.frame(t(df[, -1]), stringsAsFactors = FALSE)
 

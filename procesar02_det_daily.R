@@ -33,7 +33,7 @@ y_limit1 <- c(0, 20)
 scale1 <- 5
 date_end1 <- as.Date("2052-12-31")
 
-df_long <- read_deterministic_data(
+df_long <- read_det_data(
   file = path_excel_vol,
   sheet = "Hoja1",
   start_row = 4,
