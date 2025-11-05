@@ -1,6 +1,8 @@
 library(openxlsx)
 
 function_calc_quantile <- function(df, perc) {
+  # Esta funcion calcula los percentiles pero para ello se necesitan los
+  # datos de las 100 realizaciones.
   n <- length(df)
   # Ordenar los datos de menor a mayor
   vect <- sort(unlist(df, use.names = FALSE))
@@ -24,72 +26,10 @@ function_calc_quantile <- function(df, perc) {
   return(interp_val$y)
 }
 
-function_anual_var_all <- function(
-  input_df,
-  wb_template,
-  subfijo_out
-) {
-  superfijo <- c("pexc95", "pexc90", "pexc85", "pexc80", "pexc50", "pexc15")
-  name_out <- paste0(subfijo_out, ".xlsx")
-  names(input_df) <- superfijo
-  # Load the existing workbook
-  wb <- loadWorkbook(wb_template)
 
-  writeData(
-    wb,
-    sheet = "Hoja1", # Use the existing sheet's name
-    x = input_df, # The data frame or matrix you're writing
-    startRow = 2,
-    startCol = 2,
-    colNames = FALSE
-  )
-
-  # Save workbook
-  saveWorkbook(wb, name_out, overwrite = TRUE)
-
-  # print
-  print(name_out)
-}
-
-function_resultados_anual_var <- function(input_df, wb_template, subfijo_out) {
-  superfijo <- c("pexc95", "pexc90", "pexc85", "pexc80", "pexc50", "pexc15")
-  name_out <- paste0(subfijo_out, "_", superfijo, ".xlsx")
-  # Load the existing workbook
-  wb <- loadWorkbook(wb_template)
-  # Realizaicone
-  real <- c(1, 2, 3, 4, 5, 6)
-
-  for (i in seq_along(real)) {
-    # Seleccionar columnas (el +1 se le aplica por que la primera columna es
-    # Tiempo
-    real_i <- real[i]
-    df_i <- input_df[real_i]
-
-    # Add or overwrite content in an existing sheet
-    writeData(
-      wb,
-      sheet = "Hoja1", # Use the existing sheet's name
-      x = df_i, # The data frame or matrix you're writing
-      startRow = 4,
-      startCol = 2,
-      colNames = FALSE
-    )
-
-    # Save workbook
-    saveWorkbook(wb, name_out[i], overwrite = TRUE)
-
-    # print
-    print(name_out[i])
-  }
-}
-
-function_resultados_anual_per <- function(array, wb_template, name_out) {
-  # superfijo <- c("p10")
-  # name_out <- paste0(name_out, ".xlsx")
-  # names(input_df) <- superfijo
-  # # Load the existing workbook
-  # wb <- loadWorkbook(wb_template)
-
+func_est_split_files <- function(array, wb_template, name_out) {
+  # esta funcion esta diseñada para exportar distintos percentiles de una
+  # simulacion estocastico a una hoja de excel template (wb_template)
   superfijo <- "_p50"
   name_out <- paste0(name_out, superfijo, ".xlsx")
   # Load the existing workbook
@@ -116,15 +56,44 @@ function_resultados_anual_per <- function(array, wb_template, name_out) {
   print(name_out[1])
 }
 
-function_resultados_anual_pexc <- function(array, wb_template, subfijo_out) {
-  superfijo <- c("pexc95", "pexc90", "pexc85", "pexc80", "pexc50", "pexc15")
-  name_out <- paste0(subfijo_out, "_", superfijo, ".xlsx")
+func_one_file <- function(
+  array,
+  wb_template,
+  col_names,
+  path_out
+) {
+  # Esta funcion guarda todas las realizaciones en un solo archivo de excel.
+  # TODO quizás falte especificar la variable que se quiere guardar
+  names(array) <- col_names
   # Load the existing workbook
   wb <- loadWorkbook(wb_template)
 
-  for (i in 1:6) {
-    # Seleccionar columnas (el +1 se le aplica por que la primera columna es
-    # Tiempo
+  writeData(
+    wb,
+    sheet = "Hoja1", # Use the existing sheet's name
+    x = input_df, # The data frame or matrix you're writing
+    startRow = 2,
+    startCol = 2,
+    colNames = FALSE
+  )
+
+  # Save workbook
+  saveWorkbook(wb, path_out, overwrite = TRUE)
+
+  # print
+  print(name_out)
+}
+
+
+func_split_files <- function(array, wb_template, superfijo, path_out) {
+  # Esta funcion divide las variables de distintas realizaciones en varios
+  # archivos excel
+  name_out <- paste0(path_out, "_", superfijo, ".xlsx")
+
+  # Load the existing workbook
+  wb <- loadWorkbook(wb_template)
+
+  for (i in 1:seq_along(superfijo)) {
     new_df <- data.frame(
       lapply(array, function(df) df[[i]])
     )
