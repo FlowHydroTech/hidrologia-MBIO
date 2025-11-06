@@ -56,7 +56,7 @@ func_est_split_files <- function(array, wb_template, name_out) {
   print(name_out[1])
 }
 
-func_one_file <- function(
+func_det_one_file <- function(
   array,
   wb_template,
   col_names,
@@ -85,7 +85,7 @@ func_one_file <- function(
 }
 
 
-func_split_files <- function(array, wb_template, superfijo, path_out) {
+func_det_split_files <- function(array, wb_template, superfijo, path_out) {
   # Esta funcion divide las variables de distintas realizaciones en varios
   # archivos excel
   name_out <- paste0(path_out, "_", superfijo, ".xlsx")
